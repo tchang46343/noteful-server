@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
 const { NODE_ENV } = require("./config");
+const FolderService = require("./folder-services");
 
 const app = express();
 
@@ -12,6 +13,15 @@ const morganOption = NODE_ENV === "production" ? "tiny" : "common";
 app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
+
+app.get("/folders", (req, res, next) => {
+  const knexInstance = req.app.get("db");
+  FolderService.getTitleById(knexInstance)
+    .then(folders => {
+      res.json(folders);
+    })
+    .catch(next);
+});
 app.get("/", (req, res) => {
   res.send("Hello World!");
   //   res.send("Hello, basic boilerplate!");
