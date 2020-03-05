@@ -2,9 +2,11 @@ const folderService = {
   insertFolder(knex, folders) {
     return knex
       .insert(folders)
-      .into("title")
+      .into("name")
       .returning("*")
-      .then(([folders]) => folders);
+      .then(data => {
+        return data[0];
+      });
   },
   getTitleById(knex, id) {
     return knex.from("folders").select("*");
