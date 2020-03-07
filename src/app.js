@@ -98,10 +98,10 @@ app.post("/note", (req, res, next) => {
       res.status(500).json(error);
     });
 });
-// app.get("/", (req, res) => {
-//   res.send("Hello World!");
-//   //   res.send("Hello, basic boilerplate!");
-// });
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+  //   res.send("Hello, basic boilerplate!");
+});
 
 app.use(function errorHandler(error, req, res, next) {
   let response;
